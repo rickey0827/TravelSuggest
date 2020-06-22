@@ -19,6 +19,7 @@ class AuthorActivity : BaseActivity<ActivityAuthorBinding>() {
         }
     }
 
+
     override fun getLayoutRes() = R.layout.activity_author
 
 }
