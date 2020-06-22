@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+        <com.shehuan.niv.NiceImageView
+            android:id="@+id/pop_user_speak_icon"
+            android:layout_width="@dimen/image_size_50"
+            android:layout_height="@dimen/image_size_50"
+            android:layout_marginLeft="@dimen/margin_5"
+            android:layout_marginTop="@dimen/margin_10"
+            app:corner_bottom_left_radius="@dimen/margin_6"
+            app:corner_bottom_right_radius="@dimen/margin_6"
+            app:corner_top_left_radius="@dimen/margin_6"
+            app:corner_top_right_radius="@dimen/margin_6"
+            app:is_circle="false" />
+
+
+        <TextView
+            android:id="@+id/pop_user_speak_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/pop_user_speak_icon"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_toRightOf="@id/pop_user_speak_icon"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_size_14"
+            tools:text="@string/app_author" />
+
+        <TextView
+            android:id="@+id/pop_user_speak_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/pop_user_speak_author"
+            android:layout_alignBottom="@+id/pop_user_speak_author"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_toRightOf="@+id/pop_user_speak_author"
+            android:gravity="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_size_12"
+            tools:text="昨天22:32" />
+
+
+        <androidx.emoji.widget.EmojiTextView
+            android:id="@+id/pop_user_speak_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pop_user_speak_author"
+            android:layout_alignLeft="@+id/pop_user_speak_author"
+            android:layout_marginTop="@dimen/margin_8"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_size_12"
+            tools:text="@string/app_author_speak" />
+
+
+        <TextView
+            android:id="@+id/pop_user_likeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_5"
+            android:layout_toLeftOf="@+id/pop_user_dianZan"
+            android:text="0"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_size_12" />
+
+
+        <ImageView
+            android:id="@+id/pop_user_dianZan"
+            android:layout_width="@dimen/image_size_20"
+            android:layout_height="@dimen/image_size_20"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_10"
+            android:src="@mipmap/ic_noraml_dianzan" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

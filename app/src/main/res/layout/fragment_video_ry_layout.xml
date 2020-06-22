@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
+
+        <com.shehuan.niv.NiceImageView
+            android:id="@+id/video_ry_icon"
+            android:layout_width="@dimen/image_size_70"
+            android:layout_height="@dimen/image_size_70"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_10"
+            android:src="@mipmap/ic_launcher"
+            app:border_color="@color/colorWhite"
+            app:border_width="10dp"
+            app:is_circle="true" />
+
+        <TextView
+            android:id="@+id/video_ry_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/video_ry_icon"
+            android:layout_alignBottom="@id/video_ry_icon"
+            android:layout_toRightOf="@id/video_ry_icon"
+            android:gravity="center"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_16"
+            tools:text="@string/app_author" />
+
+
+        <TextView
+            android:id="@+id/video_ry_speak"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/video_ry_author"
+            android:layout_alignLeft="@+id/video_ry_icon"
+            android:layout_marginLeft="@dimen/margin_5"
+            android:layout_marginTop="@dimen/margin_5"
+            android:layout_marginRight="@dimen/margin_5"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_16"
+            tools:text="@string/app_author_speak" />
+
+
+        <com.xiao.nicevideoplayer.NiceVideoPlayer
+            android:id="@+id/video_ry_videoPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/video_width"
+            android:layout_below="@+id/video_ry_speak"
+            android:layout_marginTop="@dimen/margin_15" />
+
+        <LinearLayout
+            android:id="@+id/video_ry_ground"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/video_ry_videoPlayer"
+            android:layout_marginTop="@dimen/margin_10"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:id="@+id/video_ry_dianZan_Panel"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/video_ry_dianzan"
+                    android:layout_width="@dimen/image_size_20"
+                    android:layout_height="@dimen/image_size_20"
+                    android:src="@mipmap/ic_noraml_dianzan" />
+
+                <TextView
+                    android:id="@+id/video_ry_dianzan_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:textSize="@dimen/text_size_12"
+                    tools:text="100" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/video_ry_talk_panel"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center">
+
+
+                <ImageView
+                    android:id="@+id/video_ry_talk"
+                    android:layout_width="@dimen/image_size_20"
+                    android:layout_height="@dimen/image_size_20"
+                    android:src="@mipmap/ic_normal_talk" />
+
+                <TextView
+                    android:id="@+id/video_ry_talk_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:textSize="@dimen/text_size_12"
+                    tools:text="100" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center">
+
+
+                <ImageView
+                    android:id="@+id/video_ry_response"
+                    android:layout_width="@dimen/image_size_20"
+                    android:layout_height="@dimen/image_size_20"
+                    android:src="@mipmap/ic_normal_response" />
+
+                <TextView
+                    android:id="@+id/video_ry_response_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:textSize="@dimen/text_size_12"
+                    tools:text="100" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/video_ry_background"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_below="@+id/video_ry_ground"
+            android:background="@color/colorGray"
+            android:orientation="vertical" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

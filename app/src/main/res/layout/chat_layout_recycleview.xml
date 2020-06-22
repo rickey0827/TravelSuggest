@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
+
+
+        <com.shehuan.niv.NiceImageView
+            android:id="@+id/chat_NiceImageView"
+            android:layout_width="@dimen/image_size_70"
+            android:layout_height="@dimen/image_size_70"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_10"
+            android:src="@mipmap/ic_launcher"
+            app:border_color="@color/colorWhite"
+            app:border_width="10dp"
+            app:is_circle="true" />
+
+
+        <TextView
+            android:id="@+id/chat_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/chat_NiceImageView"
+            android:layout_alignBottom="@id/chat_NiceImageView"
+            android:layout_toRightOf="@id/chat_NiceImageView"
+            android:gravity="center"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_16"
+            tools:text="@string/app_author" />
+
+
+        <TextView
+            android:id="@+id/chat_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/chat_author"
+            android:layout_margin="@dimen/margin_10"
+            android:paddingLeft="@dimen/margin_5"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_16"
+            tools:text="@string/app_author_speak" />
+
+        <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+            android:id="@+id/chat_scaleImageView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:visibility="gone"
+            android:layout_below="@+id/chat_content"
+            android:layout_marginLeft="@dimen/dp_40"
+            android:layout_marginRight="@dimen/dp_40" />
+
+
+        <TextView
+            android:id="@+id/chat_mark"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/chat_scaleImageView"
+            android:layout_alignLeft="@+id/chat_content"
+            android:layout_marginLeft="@dimen/margin_3"
+            android:layout_marginTop="@dimen/margin_10"
+            android:background="@drawable/text_bg"
+            android:gravity="center"
+            android:paddingLeft="@dimen/margin_10"
+            android:paddingRight="@dimen/margin_10"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_14"
+            tools:text="#南京" />
+
+
+        <LinearLayout
+            android:id="@+id/chat_panel"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/chat_mark"
+            android:layout_marginTop="@dimen/margin_10"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/chat_share_Panel"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/chat_ry_share"
+                    android:layout_width="@dimen/image_size_20"
+                    android:layout_height="@dimen/image_size_20"
+                    android:src="@mipmap/ic_chat_share" />
+
+                <TextView
+                    android:id="@+id/chat_ry_share_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:textSize="@dimen/text_size_12"
+                    tools:text="100" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/chat_chat_Panel"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/chat_ry_chat"
+                    android:layout_width="@dimen/image_size_20"
+                    android:layout_height="@dimen/image_size_20"
+                    android:src="@mipmap/ic_chat_liaotian" />
+
+                <TextView
+                    android:id="@+id/chat_ry_chat_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:textSize="@dimen/text_size_12"
+                    tools:text="100" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/chat_dianZan_Panel"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/chat_ry_dianZan"
+                    android:layout_width="@dimen/image_size_20"
+                    android:layout_height="@dimen/image_size_20"
+                    android:src="@mipmap/ic_chat_dianzan" />
+
+                <TextView
+                    android:id="@+id/chat_ry_chat_dianZan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:textSize="@dimen/text_size_12"
+                    tools:text="100" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/chat_cai_Panel"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/chat_ry_cai"
+                    android:layout_width="@dimen/image_size_20"
+                    android:layout_height="@dimen/image_size_20"
+                    android:src="@mipmap/ic_chat_cai" />
+
+                <TextView
+                    android:id="@+id/chat_ry_chat_cai"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:textSize="@dimen/text_size_12"
+                    tools:text="100" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/chat_ry_background"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_below="@+id/chat_panel"
+            android:background="@color/colorGray"
+            android:orientation="vertical" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

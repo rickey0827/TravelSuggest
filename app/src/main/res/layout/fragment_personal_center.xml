@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="userInfo"
+            type="com.soft507.travelsuggest.bean.UserBean" />
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:fitsSystemWindows="true">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="@dimen/margin_60"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <com.shehuan.niv.NiceImageView
+                    android:id="@+id/personal_user_icon"
+                    android:layout_width="@dimen/circle_width_80"
+                    android:layout_height="@dimen/circle_width_80"
+                    android:layout_marginLeft="@dimen/margin_20"
+                    android:src="@mipmap/ic_user_test_icon"
+                    app:corner_bottom_left_radius="@dimen/margin_6"
+                    app:corner_bottom_right_radius="@dimen/margin_6"
+                    app:corner_top_left_radius="@dimen/margin_6"
+                    app:corner_top_right_radius="@dimen/margin_6"
+                    app:is_circle="false" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/circle_width_80"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_marginTop="@dimen/margin_5"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/personal_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/text_size_20"
+                        tools:text="@string/app_author" />
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/personal_user_key"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="@dimen/margin_13"
+                            android:layout_toLeftOf="@+id/personal_user_info"
+                            android:gravity="center|left"
+                            android:textColor="@color/grey_active"
+                            android:textSize="@dimen/text_size_12"
+                            tools:text="识别号:&#160;&#160;q720223" />
+
+
+                        <LinearLayout
+                            android:id="@+id/personal_user_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@+id/personal_user_key"
+                            android:layout_alignBottom="@+id/personal_user_key"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/margin_15"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:src="@mipmap/ic_qrcode_logo" />
+
+                            <ImageView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_marginLeft="@dimen/margin_15"
+                                android:src="@mipmap/ic_right_arrow" />
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/personal_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_30" />
+
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

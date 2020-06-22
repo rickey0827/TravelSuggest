@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="@drawable/layout_tow_allow_set">
+
+        <TextView
+            android:id="@+id/pop_discuss_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_10"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_size_16"
+            tools:text="8647条评论" />
+
+        <ImageView
+            android:id="@+id/pop_discuss_close"
+            android:layout_width="@dimen/image_size_15"
+            android:layout_height="@dimen/image_size_15"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginRight="@dimen/margin_10"
+            android:src="@mipmap/ic_xx" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/pop_discuss_ry"
+            android:layout_above="@+id/pop_discuss_send"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/pop_discuss_count"
+            android:layout_marginTop="@dimen/margin_10" />
+
+        <androidx.emoji.widget.EmojiEditText
+            android:id="@+id/pop_discuss_send"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorBlack"
+            android:textColor="@color/colorWhite"
+            android:hint="@string/video_speak_nice"
+            android:imeOptions="actionSend"
+            android:singleLine="true"
+            android:paddingLeft="@dimen/margin_5"
+            android:textColorHint="@color/colorGray" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

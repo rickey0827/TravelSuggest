@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="tab_home">
+        <item>出行</item>
+        <item>社区</item>
+        <item>我的</item>
+    </array>
+
+
+</resources>

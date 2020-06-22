@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/ic_login_background"
+        android:fitsSystemWindows="true"
+        tools:context=".activity.RegisterActivity">
+
+
+        <com.romainpiel.shimmer.ShimmerTextView
+            android:id="@+id/register_shimmerTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_40"
+            android:fitsSystemWindows="true"
+            android:text="@string/app_name_en"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_size_25"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:reflectionColor="#f00">
+
+        </com.romainpiel.shimmer.ShimmerTextView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/register_cardView"
+            android:layout_width="350dp"
+            android:layout_height="450dp"
+            android:layout_marginTop="@dimen/dp_40"
+            android:background="@color/colorWhite"
+            android:fitsSystemWindows="true"
+            app:cardCornerRadius="8dp"
+            app:elevation="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/register_shimmerTextView">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <com.romainpiel.shimmer.ShimmerTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:gravity="center"
+                    android:text="@string/register_en"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/text_size_20" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/register_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_15"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:hint="@string/register_username"
+                    android:lines="1"
+                    android:singleLine="true"
+                    app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/blue_active" />
+
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/register_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_15"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:hint="@string/register_password"
+                    android:lines="1"
+                    android:singleLine="true"
+                    app:met_clearButton="true"
+                    app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/blue_active" />
+
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/register_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_15"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:hint="@string/register_email"
+                    android:lines="1"
+                    android:singleLine="true"
+                    app:met_clearButton="true"
+                    app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/blue_active" />
+
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/register_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_15"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:hint="@string/register_phone"
+                    android:lines="1"
+                    android:singleLine="true"
+                    app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/blue_active" />
+
+
+                <Button
+                    android:id="@+id/register_btn"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_20"
+                    android:background="@drawable/login_btn_circle"
+                    android:onClick="click"
+                    android:text="@string/register"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_size_16" />
+
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

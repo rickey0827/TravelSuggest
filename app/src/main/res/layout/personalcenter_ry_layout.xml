@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/image_size_50">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorGray" />
+
+        <ImageView
+            android:id="@+id/personal_icon"
+            android:layout_width="@dimen/image_size_30"
+            android:layout_height="@dimen/image_size_30"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_10" />
+
+
+        <TextView
+            android:id="@+id/person_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_toRightOf="@+id/personal_icon"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_16"
+            tools:text="关于作者" />
+
+
+        <ImageView
+            android:layout_width="@dimen/image_size_30"
+            android:layout_height="@dimen/image_size_30"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_15"
+            android:rotation="180"
+            android:src="@mipmap/ic_left_small_arrow" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorGray" />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/personal_background"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/colorGray"
+        android:orientation="vertical" />
+
+
+</LinearLayout>

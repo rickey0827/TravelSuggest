@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_60"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_60"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:id="@+id/personal_name_ry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_16"
+            tools:text="名字" />
+
+
+        <TextView
+            android:id="@+id/personal_text_ry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_15"
+            android:textSize="@dimen/text_size_16"
+            android:visibility="gone"
+            tools:text="q720223" />
+
+
+        <ImageView
+            android:id="@+id/personal_qrCode_ry"
+            android:layout_width="@dimen/image_size_20"
+            android:layout_height="@dimen/image_size_20"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_8"
+            android:layout_toLeftOf="@+id/personal_image_ry"
+            android:src="@mipmap/ic_qrcode_logo" />
+
+        <ImageView
+            android:id="@+id/personal_image_ry"
+            android:layout_width="@dimen/image_size_30"
+            android:layout_height="@dimen/image_size_30"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_15"
+            android:rotation="180"
+            android:src="@mipmap/ic_left_small_arrow" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

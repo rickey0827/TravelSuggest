@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        tools:ignore="UselessLeaf,UselessParent">
+
+        <ImageView
+            android:id="@+id/collect_ry_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:scaleType="fitXY"
+            android:contentDescription="@null" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|bottom"
+            android:gravity="left|center"
+            android:layout_marginLeft="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin_8"
+            android:orientation="horizontal"
+            tools:ignore="RtlHardcoded,UseCompoundDrawables">
+
+            <ImageView
+                android:layout_width="@dimen/image_size_15"
+                android:layout_height="@dimen/image_size_15"
+                android:contentDescription="@null"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_play_allow" />
+
+            <TextView
+                android:id="@+id/collect_ry_count"
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/text_size_12"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                tools:text="170" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>
+

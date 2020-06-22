@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.soft507.travelsuggest.activity.LoginActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/ic_login_background"
+        android:fitsSystemWindows="true"
+        tools:context=".activity.LoginActivity">
+
+
+        <com.romainpiel.shimmer.ShimmerTextView
+            android:id="@+id/login_shimmerTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_30"
+            android:fitsSystemWindows="true"
+            android:text="@string/app_name_en"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_size_25"
+            app:layout_constraintBottom_toTopOf="@+id/login_cardView"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:reflectionColor="#f00" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/login_cardView"
+            android:layout_width="350dp"
+            android:layout_height="400dp"
+            android:layout_marginBottom="@dimen/margin_30"
+            android:background="@color/colorWhite"
+            android:fitsSystemWindows="true"
+            app:cardCornerRadius="8dp"
+            app:elevation="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/login_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_marginTop="@dimen/margin_15"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:hint="@string/login_username_and_email"
+                        android:lines="1"
+                        android:singleLine="true"
+                        app:met_floatingLabel="highlight"
+                        app:met_primaryColor="@color/blue_active" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/login_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_marginTop="@dimen/margin_15"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:hint="@string/login_password"
+                        android:inputType="textPassword"
+                        android:lines="1"
+                        android:singleLine="true"
+                        app:met_clearButton="true"
+                        app:met_floatingLabel="highlight"
+                        app:met_primaryColor="@color/blue_active" />
+
+
+                    <Button
+                        android:id="@+id/login_btn"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/margin_20"
+                        android:background="@drawable/login_btn_circle"
+                        android:onClick="click"
+                        android:text="@string/login"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/text_size_16" />
+
+                    <TextView
+                        android:id="@+id/jump_register"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/margin_15"
+                        android:text="@string/no_login" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_20"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/qq_login"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/image_size_30"
+                            android:layout_weight="1"
+                            android:src="@mipmap/ic_qq_logo" />
+
+                        <ImageView
+                            android:id="@+id/weibo_login"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/image_size_30"
+                            android:layout_weight="1"
+                            android:src="@mipmap/ic_weibo_logo" />
+
+                        <ImageView
+                            android:id="@+id/wechat_logo"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/image_size_30"
+                            android:layout_weight="1"
+                            android:src="@mipmap/ic_wechat_logo" />
+
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/login_version"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/margin_15"
+                        android:textSize="@dimen/text_size_16"
+                        tools:text="v1.0" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:fitsSystemWindows="true"
+        tools:context=".activity.HomeActivity">
+
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/act_home_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/top_navigation_constraint"
+            android:fitsSystemWindows="true" />
+
+        <com.gauravk.bubblenavigation.BubbleNavigationConstraintView
+            android:id="@+id/top_navigation_constraint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorWhite"
+            android:elevation="4dp"
+            android:fitsSystemWindows="true"
+            android:padding="12dp"
+            app:bnc_mode="spread"
+            tools:ignore="MissingConstraints">
+
+            <com.gauravk.bubblenavigation.BubbleToggleView
+                android:id="@+id/nav_travel_suggest_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:bt_active="true"
+                app:bt_colorActive="@color/red_active"
+                app:bt_colorInactive="@color/red_inactive"
+                app:bt_icon="@mipmap/travel_icon_selected"
+                app:bt_padding="@dimen/margin_12"
+                app:bt_shape="@drawable/transition_background_drawable_default"
+                app:bt_title="@string/nav_travel_suggest"
+                app:bt_titlePadding="@dimen/margin_8" />
+
+
+            <com.gauravk.bubblenavigation.BubbleToggleView
+                android:id="@+id/nav_comfortable_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:bt_active="true"
+                app:bt_colorActive="@color/purple_active"
+                app:bt_colorInactive="@color/purple_inactive"
+                app:bt_icon="@mipmap/comfortable_icon_selected"
+                app:bt_padding="@dimen/margin_12"
+                app:bt_shape="@drawable/transition_background_drawable_default"
+                app:bt_title="@string/nav_comfortable"
+                app:bt_titlePadding="@dimen/margin_8" />
+
+            <com.gauravk.bubblenavigation.BubbleToggleView
+                android:id="@+id/nav_personal_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:bt_active="true"
+                app:bt_colorActive="@color/blue_active"
+                app:bt_colorInactive="@color/blue_inactive"
+                app:bt_icon="@mipmap/personal_icon_selected"
+                app:bt_padding="@dimen/margin_12"
+                app:bt_shape="@drawable/transition_background_drawable_default"
+                app:bt_title="@string/nav_personal"
+                app:bt_titlePadding="@dimen/margin_8" />
+
+
+        </com.gauravk.bubblenavigation.BubbleNavigationConstraintView>
+
+
+    </RelativeLayout>
+
+</layout>
+
