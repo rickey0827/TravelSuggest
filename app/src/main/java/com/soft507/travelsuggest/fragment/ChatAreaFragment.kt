@@ -56,7 +56,6 @@ class ChatAreaFragment : BaseFragment<FragmentChatAreaBinding>() {
         refreshUI()
     }
 
-
     private fun refreshUI() {
         data.clear()
         viewModel.setKey("admin")
