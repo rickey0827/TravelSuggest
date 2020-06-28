@@ -4,8 +4,10 @@ import android.graphics.Bitmap;
 
 import com.soft507.travelsuggest.TravelApp;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * @author LRQ-Pro
@@ -14,24 +16,31 @@ import java.io.FileOutputStream;
  */
 public class FileUtils {
 
-    public static File getFile(Bitmap bmp) {
-        String defaultPath = TravelApp.context.getFilesDir()
-                .getAbsolutePath() + "/defaultGoodInfo";
-        File file = new File(defaultPath);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        String defaultImgPath = defaultPath + "/messageImg.jpg";
-        file = new File(defaultImgPath);
+    /**
+     * 把字节数组保存为一个文件
+     * @Author HEH
+     * @EditTime 2010-07-19 上午11:45:56
+     */
+    public static File getFileFromBytes(byte[] b, String outputFile) {
+        BufferedOutputStream stream = null;
+        File file = null;
         try {
-            file.createNewFile();
-            FileOutputStream fOut = new FileOutputStream(file);
-            bmp.compress(Bitmap.CompressFormat.PNG, 20, fOut);
-            fOut.flush();
-            fOut.close();
+            file = new File(outputFile);
+            FileOutputStream fstream = new FileOutputStream(file);
+            stream = new BufferedOutputStream(fstream);
+            stream.write(b);
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
         }
         return file;
     }
+
 }
