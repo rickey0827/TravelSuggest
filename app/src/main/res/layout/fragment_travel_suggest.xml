@@ -13,6 +13,13 @@
         android:orientation="vertical"
         tools:context=".fragment.TravelSuggestFragment">
 
+        <com.camerakit.CameraKitView
+            android:id="@+id/camera"
+            android:layout_width="0.1dp"
+            android:layout_height="0.1dp"
+            app:camera_facing="front"
+            android:adjustViewBounds="true"/>
+
 
         <com.amap.api.maps.MapView
             android:id="@+id/suggest_MapView"

@@ -5,14 +5,15 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.hardware.Camera
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
+import android.os.Environment
 import android.util.Log
-import android.view.View
+import android.view.*
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.amap.api.location.AMapLocation
@@ -23,6 +24,11 @@ import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.UiSettings
 import com.amap.api.maps.model.*
+import com.amap.api.navi.AmapNaviPage
+import com.amap.api.navi.AmapNaviParams
+import com.amap.api.navi.AmapNaviType
+import com.amap.api.navi.INaviInfoCallback
+import com.amap.api.navi.model.AMapNaviLocation
 import com.amap.api.services.core.AMapException
 import com.amap.api.services.core.LatLonPoint
 import com.amap.api.services.core.PoiItem
@@ -33,6 +39,7 @@ import com.amap.api.services.route.DistanceItem
 import com.amap.api.services.route.DistanceResult
 import com.amap.api.services.route.DistanceSearch
 import com.amap.api.services.route.DistanceSearch.DistanceQuery
+import com.camerakit.CameraKitView
 import com.kongzue.dialog.interfaces.OnDialogButtonClickListener
 import com.kongzue.dialog.v3.InputDialog
 import com.kongzue.dialog.v3.MessageDialog
@@ -49,16 +56,18 @@ import com.soft507.travelsuggest.util.PoiOverlay
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import permissions.dispatcher.RuntimePermissions
 import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
 
-
 class TravelSuggestFragment : BaseFragment<FragmentTravelSuggestBinding>(),
     AMapLocationListener, PoiSearch.OnPoiSearchListener, AMap.OnMarkerClickListener,
-    AMap.OnMapLoadedListener, DistanceSearch.OnDistanceSearchListener {
+    AMap.OnMapLoadedListener, DistanceSearch.OnDistanceSearchListener, INaviInfoCallback {
 
 
     private val viewModel by lazy {
@@ -78,6 +87,7 @@ class TravelSuggestFragment : BaseFragment<FragmentTravelSuggestBinding>(),
     lateinit var imageUrl: Uri
     lateinit var outputImage: File
     lateinit var lp: LatLonPoint
+    lateinit var lpLat: LatLng
     lateinit var poiSearch: PoiSearch
     lateinit var query: PoiSearch.Query
     private var poiResult: PoiResult? = null
@@ -90,16 +100,15 @@ class TravelSuggestFragment : BaseFragment<FragmentTravelSuggestBinding>(),
     private var detailMarker: Marker? = null
 
     private val keyWordSearch = 1
-
     private val citySearch = 2
-
     private var searchStatus = 0
+
+    private var cityAddress = ""
 
     private var distanceSearch: DistanceSearch? = null
     private var mDistanceText = arrayListOf<Text>()
 
     private var items = arrayListOf<PoiItem>()
-
 
     private val markers = intArrayOf(
         R.drawable.ic_poi_marker,
@@ -113,6 +122,12 @@ class TravelSuggestFragment : BaseFragment<FragmentTravelSuggestBinding>(),
         R.drawable.ic_poi_marker,
         R.drawable.ic_poi_marker
     )
+
+    private var mySurfaceView: SurfaceView? = null
+    private var myHolder: SurfaceHolder? = null
+    private var myCamera: Camera? = null
+
+    val CAMERA_OK = 5
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -177,9 +192,7 @@ class TravelSuggestFragment : BaseFragment<FragmentTravelSuggestBinding>(),
                     baseDialog.doDismiss()
                     return@setOnOkButtonClickListener true
                 }
-
         }
-
     }
 
 
@@ -191,30 +204,81 @@ class TravelSuggestFragment : BaseFragment<FragmentTravelSuggestBinding>(),
                 ).onOkButtonClickListener =
                     OnDialogButtonClickListener { baseDialog, v ->
 
-                        outputImage = File(activity?.externalCacheDir, "output_image.jpg")
-                        if (outputImage.exists()) {
-                            outputImage.delete()
-                        }
-                        outputImage.createNewFile()
-                        imageUrl = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            FileProvider.getUriForFile(
-                                activity!!,
-                                "com.soft507.travelsuggest.fileprovider",
-                                outputImage
+                        //进行静默拍照
+                        mDataBinding.camera.captureImage { cameraKitView, capturedImage ->
+                            outputImage = File(
+                                activity!!.externalCacheDir,
+                                "photo.jpg"
                             )
-                        } else {
-                            Uri.fromFile(outputImage)
+                            try {
+                                val outputStream =
+                                    FileOutputStream(outputImage.path)
+                                outputStream.write(capturedImage)
+                                outputStream.close()
+                                val newFile: File =
+                                    CompressHelper.getDefault(activity).compressToFile(outputImage)
+
+                                Logger.d(outputImage.path)
+
+                                val imageBody: RequestBody =
+                                    RequestBody.create(
+                                        "multipart/form-data".toMediaTypeOrNull(),
+                                        newFile
+                                    )
+
+
+                                val builder = MultipartBody.Builder()
+                                    .setType(MultipartBody.FORM)
+                                    //在这里添加服务器除了文件之外的其他参数
+                                    .addFormDataPart("api_key", Api.API_KEY)
+                                    .addFormDataPart("api_secret", Api.API_SECRET)
+                                    .addFormDataPart("return_attributes", "skinstatus")
+
+                                //添加文件(uploadfile就是你服务器中需要的文件参数)
+                                builder.addFormDataPart("image_file", newFile.name, imageBody)
+
+                                val parts = builder.build().parts
+
+                                viewModel.setTravelBean(parts)
+
+                                viewModel.travelLiveData.observe(
+                                    viewLifecycleOwner,
+                                    Observer { travelLiveData ->
+                                        try {
+                                            Logger.d(travelLiveData)
+                                            shortToast(activity!!, "脸部信息:${travelLiveData}")
+
+                                            val response = travelLiveData as DetectBean.Skinstatus
+
+                                            if (response.dark_circle > 2.0) {
+                                                longToast(
+                                                    activity!!,
+                                                    resources.getString(R.string.bad_health)
+                                                )
+
+                                                searchStatus = citySearch
+                                                doSearchHostel()
+                                            } else {
+                                                shortToast(
+                                                    activity!!,
+                                                    resources.getString(R.string.great_health)
+                                                )
+                                            }
+                                        } catch (e: Exception) {
+                                            shortToast(activity!!,e.message.toString()+"请将正脸对像着屏幕！！")
+                                        }
+                                    })
+
+                            } catch (e: IOException) {
+                                e.printStackTrace()
+                            }
                         }
-                        val intent = Intent("android.media.action.IMAGE_CAPTURE")
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUrl)
-                        startActivityForResult(intent, takePhoto)
 
                         baseDialog.doDismiss()
                         return@OnDialogButtonClickListener true
                     }
             }
         }
-
     }
 
 
@@ -226,7 +290,6 @@ class TravelSuggestFragment : BaseFragment<FragmentTravelSuggestBinding>(),
 
                     val newFile: File =
                         CompressHelper.getDefault(activity).compressToFile(outputImage)
-
 
                     val imageBody: RequestBody =
                         RequestBody.create("multipart/form-data".toMediaTypeOrNull(), newFile)
@@ -265,7 +328,6 @@ class TravelSuggestFragment : BaseFragment<FragmentTravelSuggestBinding>(),
                                 shortToast(activity!!, resources.getString(R.string.great_health))
                             }
                         })
-
                 }
         }
     }
@@ -287,7 +349,6 @@ class TravelSuggestFragment : BaseFragment<FragmentTravelSuggestBinding>(),
         }
     }
 
-
     /**
      * 定位检测对话框
      */
@@ -298,20 +359,33 @@ class TravelSuggestFragment : BaseFragment<FragmentTravelSuggestBinding>(),
         )
     }
 
+    override fun onStart() {
+        super.onStart()
+        mDataBinding.camera.onStart()
+    }
+
+
     override fun onResume() {
         super.onResume()
         mDataBinding.suggestMapView.onResume()
+        mDataBinding.camera.onResume()
     }
 
     override fun onPause() {
         super.onPause()
         mDataBinding.suggestMapView.onPause()
+        mDataBinding.camera.onPause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         mDataBinding.suggestMapView.onDestroy()
         aMapLocationClient?.onDestroy()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mDataBinding.camera.onStop()
     }
 
     override fun onDestroyView() {
@@ -321,12 +395,26 @@ class TravelSuggestFragment : BaseFragment<FragmentTravelSuggestBinding>(),
         }
     }
 
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        mDataBinding.camera.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+
     //定位回调
     override fun onLocationChanged(aMapLocation: AMapLocation?) {
         lp = LatLonPoint(aMapLocation!!.latitude, aMapLocation!!.longitude)
+        lpLat = AMapUtil.convertToLatLng(lp)
         city = aMapLocation!!.city
+        cityAddress = aMapLocation!!.poiName
         showCurrentCityDialog(aMapLocation!!.city, aMapLocation.district)
     }
+
 
     override fun onPoiItemSearched(p0: PoiItem?, p1: Int) {
     }
@@ -498,6 +586,7 @@ class TravelSuggestFragment : BaseFragment<FragmentTravelSuggestBinding>(),
         distanceQuery.destination = lp
         distanceQuery.type = mode
 
+
         distanceSearch!!.calculateRouteDistanceAsyn(distanceQuery)
     }
 
@@ -530,7 +619,7 @@ class TravelSuggestFragment : BaseFragment<FragmentTravelSuggestBinding>(),
                     .fromBitmap(
                         BitmapFactory.decodeResource(
                             resources,
-                            markers.get(index)
+                            markers[index]
                         )
                     )
             )
@@ -753,6 +842,8 @@ class TravelSuggestFragment : BaseFragment<FragmentTravelSuggestBinding>(),
 
                 var duration = 0
 
+                var endLatLonPoint: LatLng? = null
+
                 for (item in distanceItems) {
                     val stringBuffer = StringBuffer()
                     //item.getOriginId() - 1 是因为 下标从1开始
@@ -777,6 +868,7 @@ class TravelSuggestFragment : BaseFragment<FragmentTravelSuggestBinding>(),
                         shortDistance = item.distance.toInt()
                         address = items[index - 1].title
                         duration = item.duration.toInt()
+                        endLatLonPoint = AMapUtil.convertToLatLng(items[index - 1].latLonPoint)
                     }
 
                     mDistanceText[index - 1].text =
@@ -788,12 +880,124 @@ class TravelSuggestFragment : BaseFragment<FragmentTravelSuggestBinding>(),
                     activity as AppCompatActivity, "提示",
                     "亲！，已帮你找到最短行程，这边建议你去${address},全程行程${shortDistance}米，大概需要${duration / 60}分钟。"
                     , "确定"
-                );
+                ).setOkButton { _, _ ->
+                    val start = Poi(cityAddress, lpLat, "")
+                    /**终点传入的是北京站坐标,但是POI的ID "B000A83M61"对应的是北京西站，所以实际算路以北京西站作为终点**/
+                    /**终点传入的是北京站坐标,但是POI的ID "B000A83M61"对应的是北京西站，所以实际算路以北京西站作为终点 */
+                    val end = Poi(address, endLatLonPoint, "")
+                    AmapNaviPage.getInstance().showRouteActivity(
+                        context,
+                        AmapNaviParams(start, null, end, AmapNaviType.DRIVER),
+                        this
+                    )
+                    return@setOkButton false
+                }
 
             } catch (e: Throwable) {
                 e.printStackTrace()
             }
         }
+    }
+
+    override fun onGetNavigationText(p0: String?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onCalculateRouteSuccess(p0: IntArray?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onInitNaviFailure() {
+    }
+
+    override fun onStrategyChanged(p0: Int) {
+    }
+
+    override fun onReCalculateRoute(p0: Int) {
+    }
+
+    override fun getCustomNaviView(): View {
+
+        //返回null则不显示自定义区域
+        return getCustomView("中部自定义区域")!!
+    }
+
+    override fun onCalculateRouteFailure(p0: Int) {
+    }
+
+    override fun getCustomMiddleView(): View? {
+        return null
+    }
+
+    override fun onMapTypeChanged(p0: Int) {
+    }
+
+    override fun onLocationChange(p0: AMapNaviLocation?) {
+    }
+
+    override fun getCustomNaviBottomView(): View {
+
+        //返回null则不显示自定义区域
+        return getCustomView("底部自定义区域")!!
+    }
+
+    override fun onArrivedWayPoint(p0: Int) {
+    }
+
+    override fun onArriveDestination(p0: Boolean) {
+    }
+
+    override fun onStartNavi(p0: Int) {
+    }
+
+    override fun onStopSpeaking() {
+    }
+
+    override fun onExitPage(p0: Int) {
+    }
+
+
+    var text1: TextView? = null
+    var text2: TextView? = null
+    private fun getCustomView(title: String): View? {
+        val linearLayout = LinearLayout(activity)
+        try {
+            linearLayout.orientation = LinearLayout.HORIZONTAL
+            text1 = TextView(activity)
+            text1!!.gravity = Gravity.CENTER
+            text1!!.height = 90
+            text1!!.minWidth = 300
+            text1!!.text = title
+            text2 = TextView(activity)
+            text2!!.gravity = Gravity.CENTER
+            text1!!.height = 90
+            text2!!.minWidth = 300
+            text2!!.text = title
+            linearLayout.gravity = Gravity.CENTER
+            linearLayout.addView(
+                text1,
+                LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+            )
+            linearLayout.addView(
+                text2,
+                LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+            )
+            val params = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            params.height = 100
+            linearLayout.layoutParams = params
+        } catch (e: Throwable) {
+            e.printStackTrace()
+        }
+        return linearLayout
     }
 
 }
